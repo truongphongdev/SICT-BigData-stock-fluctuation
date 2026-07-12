@@ -1,0 +1,167 @@
+{
+  "name": "VNStock Data Pipeline Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 18 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "a7b3db28-fb45-42ec-a070-b778749e771c",
+      "name": "Schedule Trigger (Mon-Fri 6PM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "command": "powershell.exe -Command \"cd d:\\SIC_Big_Data\\Python; .\\.venv\\Scripts\\python -X utf8 main.py\""
+      },
+      "id": "e98e29a9-3221-4357-9db6-7cbcfb00fdfb",
+      "name": "Execute Ingestion Command",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        240
+      ],
+      "notesInFlow": true,
+      "notes": "Executes python script in venv"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stock-pipeline",
+        "options": {}
+      },
+      "id": "84df24a9-83c9-4a0b-9dfd-a89e81b67272",
+      "name": "Webhook Listener (Python Callbacks)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        480
+      ],
+      "webhookId": "stock-pipeline"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=📊 *VNStock Ingestion Report*\n\n🔹 *Status:* {{ $json.body.status }}\n🔹 *Timestamp:* {{ $json.body.timestamp }}\n🔹 *DB Saved:* {{ $json.body.saved_to_db }}\n🔹 *Symbols Ingested:* {{ $json.body.saved_symbols_count }}\n🔹 *Price Records:* {{ $json.body.saved_prices_count }}\n🔹 *Source:* {{ $json.body.source }}\n\n⚠️ *Failed Symbols:* {{ $json.body.failed_symbols.join(', ') || 'None' }}"
+      },
+      "id": "3d9a19c7-5d20-4ea7-9a4f-cc810f69a9b0",
+      "name": "Telegram Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "status-check",
+              "leftValue": "={{ $json.exitCode }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "97e2bf58-5d20-4ea7-9a4f-cc810f69a9bc",
+      "name": "If Command Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        640,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=🚨 *VNStock Pipeline ERROR*\n\nPipeline execution failed with exit code: {{ $json.exitCode }}.\nError details:\n```\n{{ $json.stderr }}\n```"
+      },
+      "id": "d0e123fc-c2cb-4cd7-bf53-7313a37ba772",
+      "name": "Telegram Error Alert",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        860,
+        340
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Mon-Fri 6PM)": {
+      "main": [
+        [
+          {
+            "node": "Execute Ingestion Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Ingestion Command": {
+      "main": [
+        [
+          {
+            "node": "If Command Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Command Success": {
+      "main": [
+        null,
+        [
+          {
+            "node": "Telegram Error Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook Listener (Python Callbacks)": {
+      "main": [
+        [
+          {
+            "node": "Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {}
+}
