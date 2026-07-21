@@ -366,3 +366,47 @@ symbol                                                    organ_name
 2026-07-21 20:38:21,062 - INFO - Fetching history for HPG (2026-07-21 to 2026-07-21) using VCI...
 2026-07-21 20:38:51,325 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
 2026-07-21 20:39:23,537 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:39:46,428 - INFO - =========================================
+2026-07-21 20:39:46,428 - INFO - Stock Ingestion Pipeline Starting
+2026-07-21 20:39:46,428 - INFO - Target symbols: ['VCB', 'BID', 'CTG', 'ACB', 'TCB', 'MBB', 'VPB', 'HDB', 'STB', 'EIB', 'VIC', 'VHM', 'VRE', 'KDH', 'VNM', 'MSN', 'SAB', 'FPT', 'POW', 'HPG', 'GAS', 'PLX', 'SSI', 'VCI', 'HCM', 'MWG', 'PNJ', 'VJC', 'GVR', 'BVH']
+2026-07-21 20:39:46,428 - INFO - Source: VCI
+2026-07-21 20:39:46,428 - INFO - Date Range: 2026-06-21 to 2026-07-21
+2026-07-21 20:39:46,428 - INFO - =========================================
+2026-07-21 20:39:46,428 - INFO - Fetching listing symbols from source: VCI
+2026-07-21 20:40:17,717 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:40:18,325 - INFO - Successfully retrieved 1945 symbols.
+2026-07-21 20:40:18,327 - INFO - Target symbols info:
+symbol                                                    organ_name
+   ACB                           Ngân hàng Thương mại Cổ phần Á Châu
+   BID    Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam
+   BVH                                             Tập đoàn Bảo Việt
+   CTG             Ngân hàng Thương mại Cổ phần Công thương Việt Nam
+   EIB          Ngân hàng Thương mại Cổ phần Xuất nhập khẩu Việt Nam
+   FPT                                           Công ty Cổ phần FPT
+   GAS                   Tổng Công ty Khí Việt Nam - Công ty Cổ phần
+   GVR        Tập đoàn Công nghiệp Cao su Việt Nam - Công ty Cổ phần
+   HCM             Công ty Cổ phần Chứng khoán Thành phố Hồ Chí Minh
+   HDB Ngân hàng Thương mại Cổ phần Phát Triển Thành phố Hồ Chí Minh
+   HPG                             Công ty Cổ phần Tập đoàn Hòa Phát
+   KDH           Công ty Cổ phần Đầu tư và Kinh doanh nhà Khang Điền
+   MBB                         Ngân hàng Thương mại Cổ phần Quân đội
+   MSN                                Công ty Cổ phần Tập đoàn Masan
+   MWG                       Công ty Cổ phần Đầu tư Thế Giới Di Động
+   PLX                                    Tập đoàn Xăng dầu Việt Nam
+   PNJ                     Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận
+   POW                 Tổng Công ty Điện lực Dầu khí Việt Nam - CTCP
+   SAB      Tổng Công ty Cổ phần Bia - Rượu - Nước Giải khát Sài Gòn
+   SSI                               Công ty Cổ phần Chứng khoán SSI
+   STB                  Ngân hàng Thương mại Cổ phần Sài Gòn Tài Lộc
+   TCB               Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam
+   VCB            Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   VCI                           Công ty Cổ phần Chứng khoán Vietcap
+   VHM                                      Công ty Cổ phần Vinhomes
+   VIC                                Tập đoàn Vingroup - Công ty CP
+   VJC                            Công ty Cổ phần Hàng không Vietjet
+   VNM                                  Công ty Cổ phần Sữa Việt Nam
+   VPB             Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng
+   VRE                                 Công ty Cổ phần Vincom Retail
+2026-07-21 20:40:18,327 - INFO - Fetching history for VCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:40:19,438 - INFO - Successfully retrieved 24 price records for VCB.
+2026-07-21 20:40:19,438 - INFO - Fetching history for BID (2026-06-21 to 2026-07-21) using VCI...
