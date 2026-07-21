@@ -1,0 +1,162 @@
+2026-07-12 15:59:10,802 - INFO - =========================================
+2026-07-12 15:59:10,802 - INFO - Stock Ingestion Pipeline Starting
+2026-07-12 15:59:10,802 - INFO - Target symbols: ['VCB', 'ACB']
+2026-07-12 15:59:10,802 - INFO - Source: VCI
+2026-07-12 15:59:10,802 - INFO - Date Range: 2026-06-12 to 2026-07-12
+2026-07-12 15:59:10,803 - INFO - =========================================
+2026-07-12 15:59:10,803 - INFO - Fetching listing symbols from source: VCI
+2026-07-12 15:59:12,625 - INFO - Successfully retrieved 1745 symbols.
+2026-07-12 15:59:12,628 - INFO - Retrieved target symbols listings details:
+symbol                                         organ_name
+   VCB Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   ACB                Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-12 15:59:12,628 - INFO - Fetching history for VCB (2026-06-12 to 2026-07-12) using VCI...
+2026-07-12 15:59:13,446 - INFO - Successfully retrieved 23 price records for VCB.
+2026-07-12 15:59:13,446 - INFO - Fetching history for ACB (2026-06-12 to 2026-07-12) using VCI...
+2026-07-12 15:59:13,753 - INFO - Successfully retrieved 23 price records for ACB.
+2026-07-12 15:59:13,754 - INFO - Successfully fetched 46 total price rows across 2 symbols.
+2026-07-12 15:59:13,754 - INFO - Running in --verify-only mode. Saving directly to CSV files in 'data/' directory.
+2026-07-12 15:59:13,762 - INFO - Saved listing symbols to: data/symbols_listing.csv
+2026-07-12 15:59:13,766 - INFO - Saved prices for ACB to: data/ACB_prices.csv
+2026-07-12 15:59:13,768 - INFO - Saved prices for VCB to: data/VCB_prices.csv
+2026-07-12 15:59:13,768 - INFO - =========================================
+2026-07-12 15:59:13,768 - INFO - Stock Ingestion Pipeline Completed
+2026-07-12 15:59:13,769 - INFO - Ingested Symbols: 1745
+2026-07-12 15:59:13,769 - INFO - Ingested Prices: 46
+2026-07-12 15:59:13,769 - INFO - =========================================
+2026-07-12 15:59:25,327 - INFO - =========================================
+2026-07-12 15:59:25,327 - INFO - Stock Ingestion Pipeline Starting
+2026-07-12 15:59:25,327 - INFO - Target symbols: ['VCB', 'ACB']
+2026-07-12 15:59:25,327 - INFO - Source: VCI
+2026-07-12 15:59:25,327 - INFO - Date Range: 2026-06-12 to 2026-07-12
+2026-07-12 15:59:25,327 - INFO - =========================================
+2026-07-12 15:59:25,327 - INFO - Fetching listing symbols from source: VCI
+2026-07-12 15:59:27,239 - INFO - Successfully retrieved 1745 symbols.
+2026-07-12 15:59:27,242 - INFO - Retrieved target symbols listings details:
+symbol                                         organ_name
+   VCB Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   ACB                Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-12 15:59:27,243 - INFO - Fetching history for VCB (2026-06-12 to 2026-07-12) using VCI...
+2026-07-12 15:59:28,037 - INFO - Successfully retrieved 23 price records for VCB.
+2026-07-12 15:59:28,040 - INFO - Fetching history for ACB (2026-06-12 to 2026-07-12) using VCI...
+2026-07-12 15:59:28,362 - INFO - Successfully retrieved 23 price records for ACB.
+2026-07-12 15:59:28,363 - INFO - Successfully fetched 46 total price rows across 2 symbols.
+2026-07-12 15:59:28,363 - INFO - Attempting to connect to PostgreSQL database...
+2026-07-12 15:59:28,466 - ERROR - Failed to connect to database: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-07-12 15:59:28,466 - WARNING - Could not establish connection to Postgres. Falling back to local CSV exports.
+2026-07-12 15:59:28,466 - INFO - Saving data to CSV fallback in 'data/' directory...
+2026-07-12 15:59:28,471 - INFO - Saved fallback listing symbols to: data/symbols_listing.csv
+2026-07-12 15:59:28,474 - INFO - Saved fallback prices for ACB to: data/ACB_prices.csv
+2026-07-12 15:59:28,475 - INFO - Saved fallback prices for VCB to: data/VCB_prices.csv
+2026-07-12 15:59:28,475 - INFO - =========================================
+2026-07-12 15:59:28,475 - INFO - Stock Ingestion Pipeline Completed
+2026-07-12 15:59:28,475 - INFO - Ingested Symbols: 1745
+2026-07-12 15:59:28,475 - INFO - Ingested Prices: 46
+2026-07-12 15:59:28,475 - INFO - =========================================
+2026-07-21 19:28:53,270 - INFO - =========================================
+2026-07-21 19:28:53,270 - INFO - Stock Ingestion Pipeline Starting
+2026-07-21 19:28:53,270 - INFO - Target symbols: ['VCB', 'ACB', 'TCB', 'BID', 'CTG', 'VNM', 'FPT', 'HPG', 'GAS', 'MSN', 'VIC', 'VHM', 'VRE', 'SSI', 'VCI', 'MWG', 'PNJ']
+2026-07-21 19:28:53,270 - INFO - Source: VCI
+2026-07-21 19:28:53,270 - INFO - Date Range: 2026-06-21 to 2026-07-21
+2026-07-21 19:28:53,270 - INFO - =========================================
+2026-07-21 19:28:53,270 - INFO - Fetching listing symbols from source: VCI
+2026-07-21 19:28:55,405 - INFO - Successfully retrieved 1746 symbols.
+2026-07-21 19:28:55,408 - INFO - Retrieved target symbols listings details:
+symbol                                                 organ_name
+   VRE                              Công ty Cổ phần Vincom Retail
+   VNM                               Công ty Cổ phần Sữa Việt Nam
+   VIC                             Tập đoàn Vingroup - Công ty CP
+   VHM                                   Công ty Cổ phần Vinhomes
+   VCI                        Công ty Cổ phần Chứng khoán Vietcap
+   VCB         Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   TCB            Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam
+   SSI                            Công ty Cổ phần Chứng khoán SSI
+   PNJ                  Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận
+   MWG                    Công ty Cổ phần Đầu tư Thế Giới Di Động
+   MSN                             Công ty Cổ phần Tập đoàn Masan
+   HPG                          Công ty Cổ phần Tập đoàn Hòa Phát
+   GAS                Tổng Công ty Khí Việt Nam - Công ty Cổ phần
+   FPT                                        Công ty Cổ phần FPT
+   CTG          Ngân hàng Thương mại Cổ phần Công thương Việt Nam
+   BID Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam
+   ACB                        Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-21 19:28:55,408 - INFO - Fetching history for VCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:56,209 - INFO - Successfully retrieved 24 price records for VCB.
+2026-07-21 19:28:56,209 - INFO - Fetching history for ACB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:56,503 - INFO - Successfully retrieved 24 price records for ACB.
+2026-07-21 19:28:56,503 - INFO - Fetching history for TCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:56,810 - INFO - Successfully retrieved 24 price records for TCB.
+2026-07-21 19:28:56,810 - INFO - Fetching history for BID (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:57,131 - INFO - Successfully retrieved 24 price records for BID.
+2026-07-21 19:28:57,131 - INFO - Fetching history for CTG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:57,427 - INFO - Successfully retrieved 24 price records for CTG.
+2026-07-21 19:28:57,427 - INFO - Fetching history for VNM (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:57,728 - INFO - Successfully retrieved 24 price records for VNM.
+2026-07-21 19:28:57,728 - INFO - Fetching history for FPT (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:58,071 - INFO - Successfully retrieved 24 price records for FPT.
+2026-07-21 19:28:58,071 - INFO - Fetching history for HPG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:58,389 - INFO - Successfully retrieved 24 price records for HPG.
+2026-07-21 19:28:58,389 - INFO - Fetching history for GAS (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:58,740 - INFO - Successfully retrieved 24 price records for GAS.
+2026-07-21 19:28:58,740 - INFO - Fetching history for MSN (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:59,073 - INFO - Successfully retrieved 24 price records for MSN.
+2026-07-21 19:28:59,073 - INFO - Fetching history for VIC (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:28:59,382 - INFO - Successfully retrieved 24 price records for VIC.
+2026-07-21 19:28:59,382 - INFO - Fetching history for VHM (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:29:00,207 - INFO - Successfully retrieved 24 price records for VHM.
+2026-07-21 19:29:00,207 - INFO - Fetching history for VRE (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:29:00,503 - INFO - Successfully retrieved 24 price records for VRE.
+2026-07-21 19:29:00,503 - INFO - Fetching history for SSI (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:29:00,817 - INFO - Successfully retrieved 24 price records for SSI.
+2026-07-21 19:29:00,818 - INFO - Fetching history for VCI (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:29:01,176 - INFO - Successfully retrieved 24 price records for VCI.
+2026-07-21 19:29:01,176 - INFO - Fetching history for MWG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:29:31,393 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 19:30:03,644 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 19:30:06,444 - INFO - Successfully retrieved 24 price records for MWG.
+2026-07-21 19:30:06,444 - INFO - Fetching history for PNJ (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:30:06,742 - INFO - Successfully retrieved 24 price records for PNJ.
+2026-07-21 19:30:06,744 - INFO - Successfully fetched 408 total price rows across 17 symbols.
+2026-07-21 19:30:06,745 - INFO - Attempting to connect to PostgreSQL database...
+2026-07-21 19:30:06,806 - INFO - Database connection established successfully.
+2026-07-21 19:30:06,806 - INFO - Initializing database tables...
+2026-07-21 19:30:06,830 - INFO - Database tables initialized successfully.
+2026-07-21 19:30:06,989 - INFO - Upserted 1746 symbols into database.
+2026-07-21 19:30:07,030 - INFO - Upserted 408 price rows into database.
+2026-07-21 19:30:07,030 - INFO - Successfully completed database ingestion.
+2026-07-21 19:30:07,030 - INFO - =========================================
+2026-07-21 19:30:07,030 - INFO - Stock Ingestion Pipeline Completed
+2026-07-21 19:30:07,030 - INFO - Ingested Symbols: 1746
+2026-07-21 19:30:07,031 - INFO - Ingested Prices: 408
+2026-07-21 19:30:07,031 - INFO - =========================================
+2026-07-21 19:49:33,141 - INFO - =========================================
+2026-07-21 19:49:33,141 - INFO - Stock Ingestion Pipeline Starting
+2026-07-21 19:49:33,141 - INFO - Target symbols: ['VCB', 'ACB']
+2026-07-21 19:49:33,141 - INFO - Source: VCI
+2026-07-21 19:49:33,141 - INFO - Date Range: 2026-06-21 to 2026-07-21
+2026-07-21 19:49:33,141 - INFO - =========================================
+2026-07-21 19:49:33,141 - INFO - Fetching listing symbols from source: VCI
+2026-07-21 19:49:34,957 - INFO - Successfully retrieved 1746 symbols.
+2026-07-21 19:49:34,959 - INFO - Target symbols info:
+symbol                                         organ_name
+   VCB Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   ACB                Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-21 19:49:34,959 - INFO - Fetching history for VCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:49:35,566 - INFO - Successfully retrieved 24 price records for VCB.
+2026-07-21 19:49:35,566 - INFO - Fetching history for ACB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 19:49:35,834 - INFO - Successfully retrieved 24 price records for ACB.
+2026-07-21 19:49:35,834 - INFO - Fetched 48 price rows across 2/2 symbols.
+2026-07-21 19:49:35,834 - INFO - Connecting to PostgreSQL database...
+2026-07-21 19:49:35,993 - INFO - Database connection established successfully.
+2026-07-21 19:49:35,994 - INFO - Initializing database tables...
+2026-07-21 19:49:35,998 - INFO - Database tables initialized successfully.
+2026-07-21 19:49:36,128 - INFO - Upserted 1746 symbols into database.
+2026-07-21 19:49:36,137 - INFO - Upserted 48 price rows into database.
+2026-07-21 19:49:36,137 - INFO - Database ingestion completed successfully.
+2026-07-21 19:49:36,137 - INFO - =========================================
+2026-07-21 19:49:36,137 - INFO - Stock Ingestion Pipeline Completed
+2026-07-21 19:49:36,137 - INFO - Symbols upserted : 1746
+2026-07-21 19:49:36,137 - INFO - Price rows upserted: 48
+2026-07-21 19:49:36,137 - INFO - =========================================

@@ -23,7 +23,7 @@
     },
     {
       "parameters": {
-        "command": "powershell.exe -Command \"cd d:\\SIC_Big_Data\\Python; .\\.venv\\Scripts\\python -X utf8 main.py\""
+        "command": "powershell.exe -Command \"cd d:\\SIC_Big_Data\\SIC-BTL\\Python; .\\.venv\\Scripts\\python -X utf8 pipeline.py\""
       },
       "id": "e98e29a9-3221-4357-9db6-7cbcfb00fdfb",
       "name": "Execute Ingestion Command",

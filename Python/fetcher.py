@@ -4,7 +4,6 @@ from vnstock import Listing, Quote
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 def fetch_all_symbols(source: str = "VCI") -> pd.DataFrame:
