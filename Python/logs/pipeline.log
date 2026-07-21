@@ -160,3 +160,209 @@ symbol                                         organ_name
 2026-07-21 19:49:36,137 - INFO - Symbols upserted : 1746
 2026-07-21 19:49:36,137 - INFO - Price rows upserted: 48
 2026-07-21 19:49:36,137 - INFO - =========================================
+2026-07-21 20:30:18,669 - INFO - =========================================
+2026-07-21 20:30:18,669 - INFO - Stock Ingestion Pipeline Starting
+2026-07-21 20:30:18,669 - INFO - Target symbols: ['VCB', 'BID', 'CTG', 'ACB', 'TCB', 'MBB', 'VPB', 'HDB', 'STB', 'EIB', 'VIC', 'VHM', 'VRE', 'KDH', 'VNM', 'MSN', 'SAB', 'FPT', 'POW', 'HPG', 'GAS', 'PLX', 'SSI', 'VCI', 'HCM', 'MWG', 'PNJ', 'VJC', 'GVR', 'BVH']
+2026-07-21 20:30:18,669 - INFO - Source: VCI
+2026-07-21 20:30:18,669 - INFO - Date Range: 2026-06-21 to 2026-07-21
+2026-07-21 20:30:18,669 - INFO - =========================================
+2026-07-21 20:30:18,669 - INFO - Fetching listing symbols from source: VCI
+2026-07-21 20:30:20,796 - INFO - Successfully retrieved 1746 symbols.
+2026-07-21 20:30:20,799 - INFO - Target symbols info:
+symbol                                                    organ_name
+   VRE                                 Công ty Cổ phần Vincom Retail
+   VPB             Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng
+   VNM                                  Công ty Cổ phần Sữa Việt Nam
+   VJC                            Công ty Cổ phần Hàng không Vietjet
+   VIC                                Tập đoàn Vingroup - Công ty CP
+   VHM                                      Công ty Cổ phần Vinhomes
+   VCI                           Công ty Cổ phần Chứng khoán Vietcap
+   VCB            Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   TCB               Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam
+   STB               Ngân hàng Thương mại Cổ phần Sài Gòn Thương Tín
+   SSI                               Công ty Cổ phần Chứng khoán SSI
+   SAB      Tổng Công ty Cổ phần Bia - Rượu - Nước Giải khát Sài Gòn
+   POW                 Tổng Công ty Điện lực Dầu khí Việt Nam - CTCP
+   PNJ                     Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận
+   PLX                                    Tập đoàn Xăng dầu Việt Nam
+   MWG                       Công ty Cổ phần Đầu tư Thế Giới Di Động
+   MSN                                Công ty Cổ phần Tập đoàn Masan
+   MBB                         Ngân hàng Thương mại Cổ phần Quân đội
+   KDH           Công ty Cổ phần Đầu tư và Kinh doanh nhà Khang Điền
+   HPG                             Công ty Cổ phần Tập đoàn Hòa Phát
+   HDB Ngân hàng Thương mại Cổ phần Phát Triển Thành phố Hồ Chí Minh
+   HCM             Công ty Cổ phần Chứng khoán Thành phố Hồ Chí Minh
+   GVR        Tập đoàn Công nghiệp Cao su Việt Nam - Công ty Cổ phần
+   GAS                   Tổng Công ty Khí Việt Nam - Công ty Cổ phần
+   FPT                                           Công ty Cổ phần FPT
+   EIB          Ngân hàng Thương mại Cổ phần Xuất nhập khẩu Việt Nam
+   CTG             Ngân hàng Thương mại Cổ phần Công thương Việt Nam
+   BVH                                             Tập đoàn Bảo Việt
+   BID    Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam
+   ACB                           Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-21 20:30:20,799 - INFO - Fetching history for VCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:21,458 - INFO - Successfully retrieved 24 price records for VCB.
+2026-07-21 20:30:21,458 - INFO - Fetching history for BID (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:21,732 - INFO - Successfully retrieved 24 price records for BID.
+2026-07-21 20:30:21,732 - INFO - Fetching history for CTG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:22,020 - INFO - Successfully retrieved 24 price records for CTG.
+2026-07-21 20:30:22,021 - INFO - Fetching history for ACB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:22,289 - INFO - Successfully retrieved 24 price records for ACB.
+2026-07-21 20:30:22,289 - INFO - Fetching history for TCB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:22,552 - INFO - Successfully retrieved 24 price records for TCB.
+2026-07-21 20:30:22,552 - INFO - Fetching history for MBB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:22,824 - INFO - Successfully retrieved 24 price records for MBB.
+2026-07-21 20:30:22,824 - INFO - Fetching history for VPB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:23,124 - INFO - Successfully retrieved 24 price records for VPB.
+2026-07-21 20:30:23,124 - INFO - Fetching history for HDB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:23,396 - INFO - Successfully retrieved 24 price records for HDB.
+2026-07-21 20:30:23,396 - INFO - Fetching history for STB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:23,671 - INFO - Successfully retrieved 24 price records for STB.
+2026-07-21 20:30:23,671 - INFO - Fetching history for EIB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:23,933 - INFO - Successfully retrieved 24 price records for EIB.
+2026-07-21 20:30:23,933 - INFO - Fetching history for VIC (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:24,195 - INFO - Successfully retrieved 24 price records for VIC.
+2026-07-21 20:30:24,196 - INFO - Fetching history for VHM (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:25,009 - INFO - Successfully retrieved 24 price records for VHM.
+2026-07-21 20:30:25,010 - INFO - Fetching history for VRE (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:25,295 - INFO - Successfully retrieved 24 price records for VRE.
+2026-07-21 20:30:25,295 - INFO - Fetching history for KDH (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:25,544 - INFO - Successfully retrieved 24 price records for KDH.
+2026-07-21 20:30:25,544 - INFO - Fetching history for VNM (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:25,820 - INFO - Successfully retrieved 24 price records for VNM.
+2026-07-21 20:30:25,820 - INFO - Fetching history for MSN (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:30:56,019 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:31:28,218 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:31:31,335 - INFO - Successfully retrieved 24 price records for MSN.
+2026-07-21 20:31:31,335 - INFO - Fetching history for SAB (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:32,086 - INFO - Successfully retrieved 24 price records for SAB.
+2026-07-21 20:31:32,086 - INFO - Fetching history for FPT (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:32,910 - INFO - Successfully retrieved 24 price records for FPT.
+2026-07-21 20:31:32,911 - INFO - Fetching history for POW (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:33,599 - INFO - Successfully retrieved 24 price records for POW.
+2026-07-21 20:31:33,599 - INFO - Fetching history for HPG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:34,582 - INFO - Successfully retrieved 24 price records for HPG.
+2026-07-21 20:31:34,583 - INFO - Fetching history for GAS (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:35,192 - INFO - Successfully retrieved 24 price records for GAS.
+2026-07-21 20:31:35,192 - INFO - Fetching history for PLX (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:36,019 - INFO - Successfully retrieved 24 price records for PLX.
+2026-07-21 20:31:36,020 - INFO - Fetching history for SSI (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:36,766 - INFO - Successfully retrieved 24 price records for SSI.
+2026-07-21 20:31:36,766 - INFO - Fetching history for VCI (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:37,722 - INFO - Successfully retrieved 24 price records for VCI.
+2026-07-21 20:31:37,722 - INFO - Fetching history for HCM (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:38,588 - INFO - Successfully retrieved 24 price records for HCM.
+2026-07-21 20:31:38,588 - INFO - Fetching history for MWG (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:39,315 - INFO - Successfully retrieved 24 price records for MWG.
+2026-07-21 20:31:39,316 - INFO - Fetching history for PNJ (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:40,128 - INFO - Successfully retrieved 24 price records for PNJ.
+2026-07-21 20:31:40,129 - INFO - Fetching history for VJC (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:40,760 - INFO - Successfully retrieved 24 price records for VJC.
+2026-07-21 20:31:40,760 - INFO - Fetching history for GVR (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:41,440 - INFO - Successfully retrieved 24 price records for GVR.
+2026-07-21 20:31:41,441 - INFO - Fetching history for BVH (2026-06-21 to 2026-07-21) using VCI...
+2026-07-21 20:31:41,996 - INFO - Successfully retrieved 24 price records for BVH.
+2026-07-21 20:31:42,000 - INFO - Fetched 720 price rows across 30/30 symbols.
+2026-07-21 20:31:42,000 - INFO - Connecting to PostgreSQL database...
+2026-07-21 20:31:42,101 - INFO - Database connection established successfully.
+2026-07-21 20:31:42,101 - INFO - Initializing database tables...
+2026-07-21 20:31:42,129 - INFO - Database tables initialized successfully.
+2026-07-21 20:31:42,463 - INFO - Upserted 1746 symbols into database.
+2026-07-21 20:31:42,655 - INFO - Upserted 720 price rows into database.
+2026-07-21 20:31:42,655 - INFO - Database ingestion completed successfully.
+2026-07-21 20:31:42,656 - INFO - =========================================
+2026-07-21 20:31:42,656 - INFO - Stock Ingestion Pipeline Completed
+2026-07-21 20:31:42,656 - INFO - Symbols upserted : 1746
+2026-07-21 20:31:42,656 - INFO - Price rows upserted: 720
+2026-07-21 20:31:42,656 - INFO - =========================================
+2026-07-21 20:32:51,582 - INFO - =========================================
+2026-07-21 20:32:51,582 - INFO - Stock Ingestion Pipeline Starting
+2026-07-21 20:32:51,582 - INFO - Target symbols: ['VCB', 'BID', 'CTG', 'ACB', 'TCB', 'MBB', 'VPB', 'HDB', 'STB', 'EIB', 'VIC', 'VHM', 'VRE', 'KDH', 'VNM', 'MSN', 'SAB', 'FPT', 'POW', 'HPG', 'GAS', 'PLX', 'SSI', 'VCI', 'HCM', 'MWG', 'PNJ', 'VJC', 'GVR', 'BVH']
+2026-07-21 20:32:51,582 - INFO - Source: VCI
+2026-07-21 20:32:51,582 - INFO - Date Range: 2026-07-21 to 2026-07-21
+2026-07-21 20:32:51,582 - INFO - =========================================
+2026-07-21 20:32:51,582 - INFO - Fetching listing symbols from source: VCI
+2026-07-21 20:32:53,717 - INFO - Successfully retrieved 1746 symbols.
+2026-07-21 20:32:53,719 - INFO - Target symbols info:
+symbol                                                    organ_name
+   VRE                                 Công ty Cổ phần Vincom Retail
+   VPB             Ngân hàng Thương mại Cổ phần Việt Nam Thịnh Vượng
+   VNM                                  Công ty Cổ phần Sữa Việt Nam
+   VJC                            Công ty Cổ phần Hàng không Vietjet
+   VIC                                Tập đoàn Vingroup - Công ty CP
+   VHM                                      Công ty Cổ phần Vinhomes
+   VCI                           Công ty Cổ phần Chứng khoán Vietcap
+   VCB            Ngân hàng Thương mại Cổ phần Ngoại thương Việt Nam
+   TCB               Ngân hàng Thương mại Cổ phần Kỹ thương Việt Nam
+   STB               Ngân hàng Thương mại Cổ phần Sài Gòn Thương Tín
+   SSI                               Công ty Cổ phần Chứng khoán SSI
+   SAB      Tổng Công ty Cổ phần Bia - Rượu - Nước Giải khát Sài Gòn
+   POW                 Tổng Công ty Điện lực Dầu khí Việt Nam - CTCP
+   PNJ                     Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận
+   PLX                                    Tập đoàn Xăng dầu Việt Nam
+   MWG                       Công ty Cổ phần Đầu tư Thế Giới Di Động
+   MSN                                Công ty Cổ phần Tập đoàn Masan
+   MBB                         Ngân hàng Thương mại Cổ phần Quân đội
+   KDH           Công ty Cổ phần Đầu tư và Kinh doanh nhà Khang Điền
+   HPG                             Công ty Cổ phần Tập đoàn Hòa Phát
+   HDB Ngân hàng Thương mại Cổ phần Phát Triển Thành phố Hồ Chí Minh
+   HCM             Công ty Cổ phần Chứng khoán Thành phố Hồ Chí Minh
+   GVR        Tập đoàn Công nghiệp Cao su Việt Nam - Công ty Cổ phần
+   GAS                   Tổng Công ty Khí Việt Nam - Công ty Cổ phần
+   FPT                                           Công ty Cổ phần FPT
+   EIB          Ngân hàng Thương mại Cổ phần Xuất nhập khẩu Việt Nam
+   CTG             Ngân hàng Thương mại Cổ phần Công thương Việt Nam
+   BVH                                             Tập đoàn Bảo Việt
+   BID    Ngân hàng Thương mại Cổ phần Đầu tư và Phát triển Việt Nam
+   ACB                           Ngân hàng Thương mại Cổ phần Á Châu
+2026-07-21 20:32:53,719 - INFO - Fetching history for VCB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:54,478 - INFO - Successfully retrieved 3 price records for VCB.
+2026-07-21 20:32:54,478 - INFO - Fetching history for BID (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:54,783 - INFO - Successfully retrieved 3 price records for BID.
+2026-07-21 20:32:54,783 - INFO - Fetching history for CTG (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:55,115 - INFO - Successfully retrieved 3 price records for CTG.
+2026-07-21 20:32:55,115 - INFO - Fetching history for ACB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:55,443 - INFO - Successfully retrieved 3 price records for ACB.
+2026-07-21 20:32:55,443 - INFO - Fetching history for TCB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:55,761 - INFO - Successfully retrieved 3 price records for TCB.
+2026-07-21 20:32:55,761 - INFO - Fetching history for MBB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:56,091 - INFO - Successfully retrieved 3 price records for MBB.
+2026-07-21 20:32:56,091 - INFO - Fetching history for VPB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:56,400 - INFO - Successfully retrieved 3 price records for VPB.
+2026-07-21 20:32:56,400 - INFO - Fetching history for HDB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:56,729 - INFO - Successfully retrieved 3 price records for HDB.
+2026-07-21 20:32:56,729 - INFO - Fetching history for STB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:57,074 - INFO - Successfully retrieved 3 price records for STB.
+2026-07-21 20:32:57,075 - INFO - Fetching history for EIB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:57,396 - INFO - Successfully retrieved 3 price records for EIB.
+2026-07-21 20:32:57,396 - INFO - Fetching history for VIC (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:57,701 - INFO - Successfully retrieved 3 price records for VIC.
+2026-07-21 20:32:57,702 - INFO - Fetching history for VHM (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:58,534 - INFO - Successfully retrieved 3 price records for VHM.
+2026-07-21 20:32:58,534 - INFO - Fetching history for VRE (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:58,857 - INFO - Successfully retrieved 3 price records for VRE.
+2026-07-21 20:32:58,858 - INFO - Fetching history for KDH (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:59,181 - INFO - Successfully retrieved 3 price records for KDH.
+2026-07-21 20:32:59,181 - INFO - Fetching history for VNM (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:32:59,521 - INFO - Successfully retrieved 3 price records for VNM.
+2026-07-21 20:32:59,522 - INFO - Fetching history for MSN (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:33:29,774 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:34:02,056 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:34:05,529 - INFO - Successfully retrieved 3 price records for MSN.
+2026-07-21 20:34:05,531 - INFO - Fetching history for SAB (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:34:36,017 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:35:08,640 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:35:41,198 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:35:41,198 - ERROR - Error fetching price history for SAB: RetryError[<Future at 0x13a176d80e0 state=finished raised ConnectionError>]
+2026-07-21 20:35:41,199 - INFO - Fetching history for FPT (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:36:11,462 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:36:43,688 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:36:46,278 - INFO - Successfully retrieved 3 price records for FPT.
+2026-07-21 20:36:46,278 - INFO - Fetching history for POW (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:37:16,502 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:37:48,784 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:38:21,059 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:38:21,060 - ERROR - Error fetching price history for POW: RetryError[<Future at 0x13a17688350 state=finished raised ConnectionError>]
+2026-07-21 20:38:21,062 - INFO - Fetching history for HPG (2026-07-21 to 2026-07-21) using VCI...
+2026-07-21 20:38:51,325 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+2026-07-21 20:39:23,537 - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)

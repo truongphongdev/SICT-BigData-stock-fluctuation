@@ -21,14 +21,29 @@ DB_URI = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 # Ingestion settings
 DEFAULT_STOCK_SOURCE = os.getenv("DEFAULT_STOCK_SOURCE", "VCI")
 
-# Default symbols list to fetch (can be overridden)
+# VN30 — 30 mã vốn hóa lớn nhất sàn HOSE (Index VN30)
 DEFAULT_SYMBOLS = [
-    "VCB", "ACB", "TCB", "BID", "CTG", # Banks
-    "VNM", "FPT", "HPG", "GAS", "MSN", # Large caps
-    "VIC", "VHM", "VRE",               # Vingroup
-    "SSI", "VCI",                      # Securities
-    "MWG", "PNJ"                       # Retail
+    # Ngân hàng (10 mã)
+    "VCB", "BID", "CTG", "ACB", "TCB",
+    "MBB", "VPB", "HDB", "STB", "EIB",
+    # Bất động sản & Vingroup (4 mã)
+    "VIC", "VHM", "VRE", "KDH",
+    # Hàng tiêu dùng & thực phẩm (3 mã)
+    "VNM", "MSN", "SAB",
+    # Công nghệ & năng lượng (2 mã)
+    "FPT", "POW",
+    # Vật liệu & công nghiệp (3 mã)
+    "HPG", "GAS", "PLX",
+    # Chứng khoán (3 mã)
+    "SSI", "VCI", "HCM",
+    # Bán lẻ (2 mã)
+    "MWG", "PNJ",
+    # Hàng không & nông nghiệp (2 mã)
+    "VJC", "GVR",
+    # Bảo hiểm (1 mã)
+    "BVH",
 ]
+
 
 # Database Table Names
 TABLE_SYMBOLS = "stock_symbols"
