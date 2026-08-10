@@ -1,0 +1,341 @@
+{
+  "name": "SICTBIGDATA",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 18
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -288,
+        -80
+      ],
+      "id": "05153f98-6a53-4ab2-abf8-837b6217935b",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "const stocks = [\n  {\"ticker\": \"VCB\", \"stockID\": \"148\"},\n  {\"ticker\": \"VIC\", \"stockID\": \"150\"},\n  {\"ticker\": \"VHM\", \"stockID\": \"13232\"},\n  {\"ticker\": \"BID\", \"stockID\": \"12136\"},\n  {\"ticker\": \"CTG\", \"stockID\": \"509\"},\n  {\"ticker\": \"VPB\", \"stockID\": \"13004\"},\n  {\"ticker\": \"HPG\", \"stockID\": \"186\"},\n  {\"ticker\": \"MBB\", \"stockID\": \"890\"},\n  {\"ticker\": \"GAS\", \"stockID\": \"906\"},\n  {\"ticker\": \"FPT\", \"stockID\": \"102\"},\n  {\"ticker\": \"VNM\", \"stockID\": \"586\"},\n  {\"ticker\": \"ACB\", \"stockID\": \"591\"},\n  {\"ticker\": \"GVR\", \"stockID\": \"13198\"},\n  {\"ticker\": \"MSN\", \"stockID\": \"121\"},\n  {\"ticker\": \"MWG\", \"stockID\": \"12155\"},\n  {\"ticker\": \"LPB\", \"stockID\": \"13049\"},\n  {\"ticker\": \"STB\", \"stockID\": \"67\"},\n  {\"ticker\": \"HDB\", \"stockID\": \"13144\"},\n  {\"ticker\": \"SHB\", \"stockID\": \"381\"},\n  {\"ticker\": \"BCM\", \"stockID\": \"13187\"},\n  {\"ticker\": \"SSI\", \"stockID\": \"654\"},\n  {\"ticker\": \"VRE\", \"stockID\": \"13079\"},\n  {\"ticker\": \"VJC\", \"stockID\": \"12767\"},\n  {\"ticker\": \"SAB\", \"stockID\": \"12572\"},\n  {\"ticker\": \"VIB\", \"stockID\": \"12674\"},\n  {\"ticker\": \"SSB\", \"stockID\": \"13994\"},\n  {\"ticker\": \"TPB\", \"stockID\": \"13217\"},\n  {\"ticker\": \"PLX\", \"stockID\": \"12823\"},\n  {\"ticker\": \"BVH\", \"stockID\": \"420\"}\n];\n\nlet res = [];\nfor (let stock of stocks) {\n  res.push({ json: stock });\n}\nreturn res"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        -80
+      ],
+      "id": "d4b18b17-2f7b-4ea4-a889-43b69fd8008c",
+      "name": "Map stockID các mã CK"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://finance.vietstock.vn/data/KQGDThongKeGiaStockPaging",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Origin",
+              "value": "https://finance.vietstock.vn"
+            },
+            {
+              "name": "Referer",
+              "value": "https://finance.vietstock.vn/ket-qua-giao-dich?tab=thong-ke-gia&exchange=1&code=12823"
+            },
+            {
+              "name": "Sec-Fetch-Dest",
+              "value": "empty"
+            },
+            {
+              "name": "Sec-Fetch-Mode",
+              "value": "cors"
+            },
+            {
+              "name": "Sec-Fetch-Site",
+              "value": "same-origin"
+            },
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0"
+            },
+            {
+              "name": "X-Requested-With",
+              "value": "XMLHttpRequest"
+            },
+            {
+              "name": "sec-ch-ua",
+              "value": "\"Not=A?Brand\";v=\"99\", \"Microsoft Edge\";v=\"151\", \"Chromium\";v=\"151\""
+            },
+            {
+              "name": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "name": "sec-ch-ua-platform",
+              "value": "\"Windows\""
+            },
+            {
+              "name": "Cookie",
+              "value": "language=vi-VN; ASP.NET_SessionId=gh4onqkws1pn0lclzmcyoips; __RequestVerificationToken=s8S1XoB3CHPEbxRTZDzWEKw4MA8iVRKZAlxmC_jmmtku-dJzC1ra0Wvryy49C-zlTergMxgPpiIH9DbE5El9r49zJvGduTNIucMjZ0Id4fU1; CookieLogin=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibXhuaGVkaXQxMjM0QGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2hhc2giOiJzay1kZVlqQmJMaWhMTW5lRW1VbEJseDRnIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJteG5oZWRpdDEyMzRAZ21haWwuY29tIiwiZXhwIjoxNzg4NTExNTI3LCJpc3MiOiIudmlldHN0b2NrLnZuIiwiYXVkIjoiLnZpZXRzdG9jay52biJ9.lLusCtysKrmJH4FUBrKZ08Fw7okgtJ9u6LqQyCJxWvQ; Theme=Light; _gid=GA1.2.411979700.1785919529; _ga=GA1.2.1863625014.1785919515; _ga_EXMM0DKVEX=GS2.1.s1785919514$o1$g1$t1785923278$j24$l0$h0"
+            },
+            {
+              "name": "cookie",
+              "value": "language=vi-VN;ASP.NET_SessionId=gh4onqkws1pn0lclzmcyoips;__RequestVerificationToken=s8S1XoB3CHPEbxRTZDzWEKw4MA8iVRKZAlxmC_jmmtku-dJzC1ra0Wvryy49C-zlTergMxgPpiIH9DbE5El9r49zJvGduTNIucMjZ0Id4fU1;CookieLogin=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibXhuaGVkaXQxMjM0QGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2hhc2giOiJzay1kZVlqQmJMaWhMTW5lRW1VbEJseDRnIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJteG5oZWRpdDEyMzRAZ21haWwuY29tIiwiZXhwIjoxNzg4NTExNTI3LCJpc3MiOiIudmlldHN0b2NrLnZuIiwiYXVkIjoiLnZpZXRzdG9jay52biJ9.lLusCtysKrmJH4FUBrKZ08Fw7okgtJ9u6LqQyCJxWvQ;Theme=Light;_gid=GA1.2.411979700.1785919529;_ga=GA1.2.1863625014.1785919515;_ga_EXMM0DKVEX=GS2.1.s1785919514$o1$g1$t1785923278$j24$l0$h0;"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "page",
+              "value": "1"
+            },
+            {
+              "name": "pageSize",
+              "value": "10"
+            },
+            {
+              "name": "catID",
+              "value": "1"
+            },
+            {
+              "name": "stockID",
+              "value": "={{ $json.stockID }}"
+            },
+            {
+              "name": "fromDate",
+              "value": "2026-07-05"
+            },
+            {
+              "name": "toDate",
+              "value": "2026-08-05"
+            },
+            {
+              "name": "__RequestVerificationToken",
+              "value": "EVIFd_4EZ-N3Vsh997ccb8VWJ0A21XMXfhFoEC5OrPPO2aVmnEV6nubm1NNZHUp5PWs7npg51Xm8cZXUa6zxE569zknkivtydmV_MCmwE7ZNYikY8O0yQGkw5sUPdL6eshKL3ncgdwTHfI2nWZm6zA2"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        176,
+        -80
+      ],
+      "id": "84a273d0-3404-4b2c-93f3-c58e74d2e05f",
+      "name": "Gọi request vietstock"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst results = [];\n\n// Duyệt qua toàn bộ 87 items trả về từ node HTTP Request\nfor (const item of $input.all()) {\n    const data = item.json;\n    if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object' && data[0] !== null && 'StockCode' in data[0]) {\n        \n        for (const record of data) {\n            \n            let formattedDate = null;\n            if (record.TradingDate) {\n                const ms = parseInt(record.TradingDate.replace(/[^0-9]/g, \"\"));\n                const dateObj = new Date(ms);\n                \n                const year = dateObj.getFullYear();\n                const month = String(dateObj.getMonth() + 1).padStart(2, '0');\n                const day = String(dateObj.getDate()).padStart(2, '0');\n                formattedDate = `${year}-${month}-${day}`;\n            }\n            results.push({\n                json: {\n                    time: formattedDate,\n                    symbol: record.StockCode,\n                    open: record.OpenPrice,\n                    high: record.HighestPrice,\n                    low: record.LowestPrice,\n                    close: record.ClosePrice,\n                    volume: record.TotalVol\n                }\n            });\n        }\n    }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -80
+      ],
+      "id": "0e651f36-394b-4c45-97f4-51e7b08feba4",
+      "name": "Lọc các cột thành time, symbol, open, high, low, close, volume"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "stock_history",
+          "mode": "list",
+          "cachedResultName": "stock_history"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "open": "={{ $json.open }}",
+            "high": "={{ $json.high }}",
+            "low": "={{ $json.low }}",
+            "close": "={{ $json.close }}",
+            "volume": "={{ $json.volume }}",
+            "symbol": "={{ $json.symbol }}",
+            "time": "={{ $json.time }}"
+          },
+          "matchingColumns": [
+            "symbol",
+            "time"
+          ],
+          "schema": [
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "symbol",
+              "displayName": "symbol",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "open",
+              "displayName": "open",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "high",
+              "displayName": "high",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "low",
+              "displayName": "low",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "close",
+              "displayName": "close",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "volume",
+              "displayName": "volume",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        640,
+        -80
+      ],
+      "id": "69cd025c-94e7-4813-9f3d-6cf875bedf8c",
+      "name": "Insert or update rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "l54hErRV1yDk0m6p",
+          "name": "Postgres account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Map stockID các mã CK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map stockID các mã CK": {
+      "main": [
+        [
+          {
+            "node": "Gọi request vietstock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gọi request vietstock": {
+      "main": [
+        [
+          {
+            "node": "Lọc các cột thành time, symbol, open, high, low, close, volume",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lọc các cột thành time, symbol, open, high, low, close, volume": {
+      "main": [
+        [
+          {
+            "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "867acbd3-3824-4e6b-a3d9-3381cb4edfdf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "97a2621b49ea266d0426d98b44aa2336043d90574eba7bf2c4d57a6c18f82309"
+  },
+  "nodeGroups": [],
+  "id": "vJuGJ0RomnjbGkYz",
+  "tags": []
+}
