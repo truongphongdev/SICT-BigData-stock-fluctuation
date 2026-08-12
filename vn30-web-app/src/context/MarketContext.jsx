@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import { INITIAL_VN30_STOCKS } from '../data/mockVn30';
+import { stocksAPI, authAPI, portfolioAPI } from '../services/api';
 
 const MarketContext = createContext();
 
@@ -13,13 +14,13 @@ export function MarketProvider({ children }) {
 
   const [isLiveSimulation, setIsLiveSimulation] = useState(true);
 
-  // Quản lý danh mục theo dõi cá nhân trong localStorage
+  // Quản lý danh mục theo dõi cá nhân
   const [portfolioSymbols, setPortfolioSymbols] = useState(() => {
     const saved = localStorage.getItem('vn30_portfolio');
     return saved ? JSON.parse(saved) : ['FPT', 'HPG', 'VCB', 'SSI'];
   });
 
-  // Quản lý tài khoản người dùng trực tuyến (Auth Simulation)
+  // Quản lý tài khoản người dùng trực tuyến
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('vn30_user');
     return saved !== null ? JSON.parse(saved) : {
@@ -30,7 +31,38 @@ export function MarketProvider({ children }) {
     };
   });
 
-  const login = useCallback((email) => {
+  // Fetch initial stocks from backend on mount
+  useEffect(() => {
+    let isMounted = true;
+    async function loadStocks() {
+      try {
+        const data = await stocksAPI.getAll();
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setStocks(data.map(s => ({
+            ...s,
+            flash: null
+          })));
+        }
+      } catch (err) {
+        console.warn('Backend offline, using fallback stock data:', err);
+      }
+    }
+    loadStocks();
+    return () => { isMounted = false; };
+  }, []);
+
+  const login = useCallback(async (email, password = 'password123') => {
+    try {
+      const res = await authAPI.login(email, password);
+      if (res && res.user) {
+        setUser(res.user);
+        localStorage.setItem('vn30_token', res.access_token);
+        localStorage.setItem('vn30_user', JSON.stringify(res.user));
+        return;
+      }
+    } catch {
+      // Fallback local auth
+    }
     const newUser = {
       name: email.split('@')[0].toUpperCase(),
       email: email,
@@ -43,6 +75,7 @@ export function MarketProvider({ children }) {
 
   const logout = useCallback(() => {
     localStorage.removeItem('vn30_user');
+    localStorage.removeItem('vn30_token');
     setUser(null);
   }, []);
 
@@ -50,7 +83,7 @@ export function MarketProvider({ children }) {
     localStorage.setItem('vn30_portfolio', JSON.stringify(portfolioSymbols));
   }, [portfolioSymbols]);
 
-  const togglePortfolio = useCallback((symbol) => {
+  const togglePortfolio = useCallback(async (symbol) => {
     setPortfolioSymbols(prev => {
       if (prev.includes(symbol)) {
         return prev.filter(s => s !== symbol);
@@ -58,6 +91,13 @@ export function MarketProvider({ children }) {
         return [...prev, symbol];
       }
     });
+
+    // Optionally sync with backend if token present
+    try {
+      await portfolioAPI.toggle(symbol);
+    } catch {
+      // ignore
+    }
   }, []);
 
   const getStockBySymbol = useCallback((symbol) => {
@@ -66,13 +106,52 @@ export function MarketProvider({ children }) {
     return found || stocks[0];
   }, [stocks]);
 
-  // Bộ mô phỏng nháy giá thời gian thực (Real-time Stock Exchange Tick Engine)
+  // Bộ mô phỏng nháy giá thời gian thực (Real-time Stock Exchange Tick Engine / WebSocket)
   useEffect(() => {
     if (!isLiveSimulation) return;
 
+    // Try WebSocket connection first
+    let ws = null;
+    try {
+      const wsUrl = (location.protocol === 'https:' ? 'wss:' : 'ws:') + '//localhost:8000/api/v1/ws/market';
+      ws = new WebSocket(wsUrl);
+
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.type === 'TICK_UPDATE' && Array.isArray(data.ticks)) {
+            setStocks(currentStocks => {
+              const tickMap = new Map(data.ticks.map(t => [t.symbol.toUpperCase(), t]));
+              return currentStocks.map(s => {
+                const tick = tickMap.get(s.symbol.toUpperCase());
+                if (tick) {
+                  return {
+                    ...s,
+                    price: tick.price,
+                    change: tick.change,
+                    changePercent: tick.changePercent,
+                    flash: tick.flash
+                  };
+                }
+                return s.flash ? { ...s, flash: null } : s;
+              });
+            });
+          }
+        } catch {
+          // ignore
+        }
+      };
+    } catch {
+      ws = null;
+    }
+
+    // Interval fallback tick engine
     const interval = setInterval(() => {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        return; // WebSocket is handling ticks
+      }
+
       setStocks(currentStocks => {
-        // Chọn ngẫu nhiên 2-3 mã để biến động giá
         const indexesToChange = new Set();
         const numChanges = Math.floor(Math.random() * 3) + 1;
         while (indexesToChange.size < numChanges && indexesToChange.size < currentStocks.length) {
@@ -81,11 +160,9 @@ export function MarketProvider({ children }) {
 
         return currentStocks.map((stock, idx) => {
           if (!indexesToChange.has(idx)) {
-            // Reset flash nếu đã qua
             return stock.flash ? { ...stock, flash: null } : stock;
           }
 
-          // Dao động bước giá tài chính Việt Nam (0.05, 0.1, hoặc 0.15 nghìn VNĐ)
           const step = [0.05, 0.1, 0.15][Math.floor(Math.random() * 3)];
           const isUp = Math.random() >= 0.45; 
           const priceDelta = isUp ? step : -step;
@@ -106,9 +183,14 @@ export function MarketProvider({ children }) {
           };
         });
       });
-    }, 3200); // Mỗi 3.2 giây cập nhật giá bảng điện
+    }, 3200);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close();
+      }
+    };
   }, [isLiveSimulation]);
 
   // Tự động xóa trạng thái flash chớp sáng sau 1.2 giây để tạo hiệu ứng đẹp
@@ -135,7 +217,7 @@ export function MarketProvider({ children }) {
       else if (s.change < 0) downCount++;
       else refCount++;
 
-      indexChange += (s.change * 0.4); // Trọng lượng ước tính VN30
+      indexChange += (s.change * 0.4);
     });
 
     const baseIndex = 1272.05;
