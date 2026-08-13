@@ -4,22 +4,28 @@ Security utilities including password hashing (bcrypt) and JWT tokens.
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Any
 import jwt
-from passlib.context import CryptContext
+import bcrypt
 from app.core.config import settings
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifies that a plain text password matches its bcrypt hash."""
     try:
-        return pwd_context.verify(plain_password, hashed_password)
+        pwd_bytes = plain_password.encode('utf-8')
+        if len(pwd_bytes) > 72:
+            pwd_bytes = pwd_bytes[:72]
+        return bcrypt.checkpw(pwd_bytes, hashed_password.encode('utf-8'))
     except Exception:
         # Fallback if unhashed / legacy
         return plain_password == hashed_password
 
 def get_password_hash(password: str) -> str:
     """Generates a bcrypt hash of a password."""
-    return pwd_context.hash(password)
+    pwd_bytes = password.encode('utf-8')
+    if len(pwd_bytes) > 72:
+        pwd_bytes = pwd_bytes[:72]
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(pwd_bytes, salt).decode('utf-8')
+
 
 def create_access_token(subject: Any, expires_delta: Optional[timedelta] = None) -> str:
     """Generates a signed JWT access token."""

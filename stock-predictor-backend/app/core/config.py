@@ -28,6 +28,10 @@ class Settings(BaseSettings):
     # Model paths
     MODEL_PATH: str = "app/ml/models/best_model.json"
 
+    # MLflow Tracking & Registry
+    MLFLOW_TRACKING_URI: str = "sqlite:///mlflow.db"
+    MLFLOW_EXPERIMENT_NAME: str = "stock-predictor-vn30"
+
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
 

@@ -10,7 +10,8 @@ from app.api.v1.endpoints import (
     predict,
     portfolio,
     news,
-    ws
+    ws,
+    ml
 )
 
 api_router = APIRouter()
@@ -23,3 +24,5 @@ api_router.include_router(predict.router, prefix="/predict", tags=["prediction"]
 api_router.include_router(portfolio.router, prefix="/portfolio", tags=["portfolio"])
 api_router.include_router(news.router, prefix="/news", tags=["news"])
 api_router.include_router(ws.router, prefix="/ws", tags=["websocket"])
+api_router.include_router(ml.router, prefix="/ml", tags=["machine learning"])
+

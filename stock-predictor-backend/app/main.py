@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.db.base import Base
+from app.db.base import Base, import_all_models
 from app.db.session import engine, SessionLocal
 from app.db.seed_data import seed_database_if_empty
 from app.services.prediction_service import prediction_service
@@ -20,7 +20,8 @@ setup_logging()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 1. Ensure all database tables are created
+    # 1. Ensure all database models are registered and tables created
+    import_all_models()
     Base.metadata.create_all(bind=engine)
     
     # 2. Seed database with VN30 stocks, historical candles, news, and demo user if empty

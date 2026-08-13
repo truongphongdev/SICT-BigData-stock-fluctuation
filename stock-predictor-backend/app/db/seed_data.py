@@ -12,6 +12,7 @@ from app.models.stock_history import StockHistory
 from app.models.portfolio import PortfolioItem
 from app.models.news import NewsArticle
 from app.core.security import get_password_hash
+import numpy as np
 
 logger = logging.getLogger(__name__)
 

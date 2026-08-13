@@ -275,6 +275,30 @@
           "name": "Postgres account"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/api/v1/ml/retrain",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        860,
+        -80
+      ],
+      "id": "trigger-retrain-node-id",
+      "name": "Kích hoạt Retrain Model"
     }
   ],
   "pinData": {},
@@ -317,6 +341,17 @@
         [
           {
             "node": "Insert or update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert or update rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Kích hoạt Retrain Model",
             "type": "main",
             "index": 0
           }
