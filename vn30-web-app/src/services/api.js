@@ -79,16 +79,62 @@ export const authAPI = {
   }
 };
 
+export function normalizeStock(s) {
+  if (!s) return null;
+  const price = typeof s.price === 'number' ? s.price : (Number(s.price) || 0);
+  const change = typeof s.change === 'number' ? s.change : (Number(s.change) || 0);
+  const rawChangePct = s.changePercent ?? s.change_percent;
+  const changePercent = typeof rawChangePct === 'number' ? rawChangePct : (Number(rawChangePct) || 0);
+  const aiScore = typeof (s.aiScore ?? s.ai_score) === 'number' ? (s.aiScore ?? s.ai_score) : (Number(s.aiScore ?? s.ai_score) || 75);
+  const aiSignal = s.aiSignal || s.ai_signal || 'NẮM GIỮ';
+  const marketCap = s.marketCap || s.market_cap || '0 Tỷ';
+
+  return {
+    ...s,
+    price,
+    change,
+    changePercent,
+    change_percent: changePercent,
+    volume: s.volume || '0',
+    marketCap,
+    market_cap: marketCap,
+    pe: s.pe || '15.0',
+    eps: s.eps || '2,000 VNĐ',
+    roe: s.roe || '18.5%',
+    high52w: s.high52w ?? s.high_52w ?? round(price * 1.2, 2),
+    high_52w: s.high52w ?? s.high_52w ?? round(price * 1.2, 2),
+    low52w: s.low52w ?? s.low_52w ?? round(price * 0.8, 2),
+    low_52w: s.low52w ?? s.low_52w ?? round(price * 0.8, 2),
+    foreignBuy: s.foreignBuy || s.foreign_buy || '0',
+    foreign_buy: s.foreignBuy || s.foreign_buy || '0',
+    foreignSell: s.foreignSell || s.foreign_sell || '0',
+    foreign_sell: s.foreignSell || s.foreign_sell || '0',
+    resistance: s.resistance ?? round(price * 1.05, 2),
+    support: s.support ?? round(price * 0.95, 2),
+    rsi: s.rsi ?? 50.0,
+    macd: s.macd || '+0.0 (Neutral)',
+    aiSignal,
+    ai_signal: aiSignal,
+    aiScore,
+    ai_score: aiScore,
+    aiSummary: s.aiSummary || s.ai_summary || '',
+    ai_summary: s.aiSummary || s.ai_summary || '',
+    flash: s.flash || null
+  };
+}
+
 export const stocksAPI = {
   async getAll(params = {}) {
     const query = new URLSearchParams(params).toString();
     const endpoint = query ? `/stocks/?${query}` : '/stocks/';
-    return fetchWithFallback(endpoint, { method: 'GET' }, INITIAL_VN30_STOCKS);
+    const raw = await fetchWithFallback(endpoint, { method: 'GET' }, INITIAL_VN30_STOCKS);
+    return Array.isArray(raw) ? raw.map(normalizeStock) : INITIAL_VN30_STOCKS.map(normalizeStock);
   },
 
   async getBySymbol(symbol) {
     const fallback = INITIAL_VN30_STOCKS.find(s => s.symbol.toUpperCase() === (symbol || '').toUpperCase()) || INITIAL_VN30_STOCKS[0];
-    return fetchWithFallback(`/stocks/${symbol}`, { method: 'GET' }, fallback);
+    const raw = await fetchWithFallback(`/stocks/${symbol}`, { method: 'GET' }, fallback);
+    return normalizeStock(raw) || normalizeStock(fallback);
   },
 
   async getHistory(symbol, timeframe = '1D') {

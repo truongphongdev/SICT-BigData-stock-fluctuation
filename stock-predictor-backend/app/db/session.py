@@ -22,6 +22,10 @@ try:
         pool_pre_ping=True if not db_url.startswith("sqlite") else False,
         connect_args=connect_args
     )
+    # Ping connection to verify remote/local DB is reachable immediately
+    if not db_url.startswith("sqlite"):
+        with engine.connect() as conn:
+            pass
 except Exception as e:
     logger.warning(f"Failed to connect using {db_url}. Falling back to SQLite local database. Error: {e}")
     engine = create_engine(

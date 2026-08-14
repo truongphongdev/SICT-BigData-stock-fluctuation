@@ -67,7 +67,7 @@ MLflow được dùng để theo dõi (track) các lần huấn luyện mô hìn
 Mở một Terminal **mới** (vẫn kích hoạt `venv` và đứng tại thư mục `stock-predictor-backend`):
 
 ```powershell
-mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000
+mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000 --workers 1
 ```
 - Truy cập MLflow UI: **http://localhost:5000**
 

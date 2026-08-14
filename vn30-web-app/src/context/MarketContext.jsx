@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import { INITIAL_VN30_STOCKS } from '../data/mockVn30';
-import { stocksAPI, authAPI, portfolioAPI } from '../services/api';
+import { stocksAPI, authAPI, portfolioAPI, normalizeStock } from '../services/api';
 
 const MarketContext = createContext();
 
 export function MarketProvider({ children }) {
   const [stocks, setStocks] = useState(() => {
-    return INITIAL_VN30_STOCKS.map(stock => ({
+    return INITIAL_VN30_STOCKS.map(stock => normalizeStock({
       ...stock,
       flash: null // 'up' | 'down' | null
     }));
@@ -38,7 +38,7 @@ export function MarketProvider({ children }) {
       try {
         const data = await stocksAPI.getAll();
         if (isMounted && Array.isArray(data) && data.length > 0) {
-          setStocks(data.map(s => ({
+          setStocks(data.map(s => normalizeStock({
             ...s,
             flash: null
           })));
@@ -125,13 +125,15 @@ export function MarketProvider({ children }) {
               return currentStocks.map(s => {
                 const tick = tickMap.get(s.symbol.toUpperCase());
                 if (tick) {
-                  return {
+                  const chgPct = tick.changePercent ?? tick.change_percent ?? 0;
+                  return normalizeStock({
                     ...s,
                     price: tick.price,
                     change: tick.change,
-                    changePercent: tick.changePercent,
+                    changePercent: chgPct,
+                    change_percent: chgPct,
                     flash: tick.flash
-                  };
+                  });
                 }
                 return s.flash ? { ...s, flash: null } : s;
               });

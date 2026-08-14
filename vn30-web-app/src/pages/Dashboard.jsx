@@ -19,10 +19,10 @@ export default function Dashboard() {
     if (selectedSector === 'Bán Lẻ & Hàng Tiêu Dùng') return s.sector.includes('Bán Lẻ') || s.sector.includes('Tiêu Dùng') || s.sector.includes('Thực Phẩm');
     return true;
   }).sort((a, b) => {
-    if (sortOrder === 'change_desc') return b.changePercent - a.changePercent;
-    if (sortOrder === 'change_asc') return a.changePercent - b.changePercent;
-    if (sortOrder === 'ai_score_desc') return b.aiScore - a.aiScore;
-    if (sortOrder === 'price_desc') return b.price - a.price;
+    if (sortOrder === 'change_desc') return (b.changePercent ?? 0) - (a.changePercent ?? 0);
+    if (sortOrder === 'change_asc') return (a.changePercent ?? 0) - (b.changePercent ?? 0);
+    if (sortOrder === 'ai_score_desc') return (b.aiScore ?? 0) - (a.aiScore ?? 0);
+    if (sortOrder === 'price_desc') return (b.price ?? 0) - (a.price ?? 0);
     return 0; // default order
   });
 
@@ -42,7 +42,7 @@ export default function Dashboard() {
             </div>
             <div className="flex items-end justify-between">
               <h2 className={`font-data-lg text-data-lg ${isUpIndex ? 'text-market-up' : 'text-market-down'} transition-all`}>
-                {marketStats.vn30Index.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                {(marketStats.vn30Index ?? 1274.85).toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </h2>
               <div className={`h-8 w-20 bg-gradient-to-t ${isUpIndex ? 'from-market-up/20' : 'from-market-down/20'} to-transparent flex items-end`}>
                 <div className="w-full h-full" style={{"background": isUpIndex ? "linear-gradient(90deg, transparent 0%, transparent 40%, #22C55E 100%)" : "linear-gradient(90deg, transparent 0%, transparent 40%, #EF4444 100%)"}}></div>
@@ -154,9 +154,12 @@ export default function Dashboard() {
               </div>
               <div className="flex-1 overflow-y-auto max-h-[520px] divide-y divide-outline-variant/20">
                 {displayedStocks.map(stock => {
-                  const isUp = stock.change > 0;
-                  const isDown = stock.change < 0;
+                  const isUp = (stock.change ?? 0) > 0;
+                  const isDown = (stock.change ?? 0) < 0;
                   const colorClass = isUp ? 'text-market-up' : isDown ? 'text-market-down' : 'text-market-ref';
+                  const priceFormatted = (stock.price ?? 0).toFixed(2);
+                  const changeFormatted = (stock.change ?? 0).toFixed(2);
+                  const changePercentFormatted = (stock.changePercent ?? 0).toFixed(2);
                   
                   // Hiệu ứng chớp sáng nền khi có update giá (Real-time exchange flashing)
                   let bgClass = 'hover:bg-surface-variant/30';
@@ -174,13 +177,13 @@ export default function Dashboard() {
                         <span className="text-[11px] text-on-surface-variant truncate pr-2" title={stock.name}>{stock.name}</span>
                       </div>
                       <span className={`col-span-2 font-data-md font-bold text-right text-base ${colorClass}`}>
-                        {stock.price.toFixed(2)}
+                        {priceFormatted}
                       </span>
                       <span className={`col-span-2 font-data-md text-right font-medium ${colorClass}`}>
-                        {isUp ? `+${stock.change.toFixed(2)}` : stock.change.toFixed(2)}
+                        {isUp ? `+${changeFormatted}` : changeFormatted}
                       </span>
                       <span className={`col-span-2 font-data-md text-right font-bold ${colorClass}`}>
-                        {isUp ? `+${stock.changePercent.toFixed(2)}%` : `${stock.changePercent.toFixed(2)}%`}
+                        {isUp ? `+${changePercentFormatted}%` : `${changePercentFormatted}%`}
                       </span>
                       <div className="col-span-3 flex justify-end items-center gap-1">
                         <span className={`px-2.5 py-1 rounded text-xs font-bold border ${
@@ -189,7 +192,7 @@ export default function Dashboard() {
                           stock.aiSignal === 'BÁN' ? 'bg-market-down/10 text-market-down border-market-down/30' :
                           'bg-surface-container-high text-primary border-primary/30'
                         }`}>
-                          {stock.aiSignal} ({stock.aiScore}%)
+                          {stock.aiSignal || 'NẮM GIỮ'} ({stock.aiScore ?? 0}%)
                         </span>
                       </div>
                     </Link>
@@ -230,8 +233,8 @@ export default function Dashboard() {
                   
                   <div className="space-y-2.5">
                     {stocks
-                      .filter(s => s.aiSignal.includes('MUA'))
-                      .sort((a, b) => b.aiScore - a.aiScore)
+                      .filter(s => (s.aiSignal ?? '').includes('MUA'))
+                      .sort((a, b) => (b.aiScore ?? 0) - (a.aiScore ?? 0))
                       .slice(0, 3)
                       .map(stock => (
                         <Link 
@@ -250,9 +253,9 @@ export default function Dashboard() {
                           </div>
                           <div className="text-right flex flex-col items-end">
                             <span className="text-market-up text-xs font-bold bg-market-up/10 px-2 py-0.5 rounded border border-market-up/20">
-                              +{stock.changePercent.toFixed(2)}%
+                              +{(stock.changePercent ?? 0).toFixed(2)}%
                             </span>
-                            <span className="text-[11px] font-bold text-primary mt-1">Điểm: {stock.aiScore}/100</span>
+                            <span className="text-[11px] font-bold text-primary mt-1">Điểm: {stock.aiScore ?? 0}/100</span>
                           </div>
                         </Link>
                       ))
