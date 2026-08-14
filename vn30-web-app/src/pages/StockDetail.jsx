@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useMarket } from '../context/MarketContext';
 import CandleChart from '../components/CandleChart';
+import StockReportModal from '../components/StockReportModal';
 
 export default function StockDetail() {
   const { symbol } = useParams();
@@ -9,6 +10,7 @@ export default function StockDetail() {
   
   const [timeframe, setTimeframe] = useState('1D');
   const [showAiModal, setShowAiModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
 
   const stock = getStockBySymbol(symbol || 'FPT');
   const isUp = stock.change >= 0;
@@ -46,7 +48,7 @@ export default function StockDetail() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center flex-wrap gap-3">
           <button 
             onClick={() => togglePortfolio(stock.symbol)}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold transition-all border active:scale-95 ${
@@ -63,10 +65,18 @@ export default function StockDetail() {
           
           <button 
             onClick={() => setShowAiModal(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-bold shadow-lg shadow-primary/25 hover:brightness-110 transition-all active:scale-95"
+            className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-high border border-outline-variant hover:border-primary/50 text-on-surface rounded-xl font-bold hover:bg-surface-variant transition-all active:scale-95 text-sm"
           >
-            <span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 1"}}>psychology</span>
-            Phân tích AI Sâu
+            <span className="material-symbols-outlined text-primary" style={{"fontVariationSettings":"'FILL' 1"}}>psychology</span>
+            Phân tích AI
+          </button>
+
+          <button 
+            onClick={() => setShowReportModal(true)}
+            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-indigo-600 text-on-primary rounded-xl font-bold shadow-lg shadow-primary/30 hover:brightness-110 transition-all active:scale-95 text-sm"
+          >
+            <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+            Xuất Báo Cáo PDF
           </button>
         </div>
       </div>
@@ -363,6 +373,13 @@ export default function StockDetail() {
           </div>
         </div>
       )}
+
+      {/* Modal Báo Cáo BI Xuất PDF Khổ A4 */}
+      <StockReportModal 
+        stock={stock} 
+        isOpen={showReportModal} 
+        onClose={() => setShowReportModal(false)} 
+      />
     </div>
   );
 }

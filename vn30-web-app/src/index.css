@@ -31,3 +31,48 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Print Styles for A4 PDF Stock BI Report */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 12pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide navigation, headers and buttons when printing */
+  aside, 
+  header, 
+  nav, 
+  .no-print,
+  button {
+    display: none !important;
+  }
+
+  #root, 
+  main, 
+  .glass-panel {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #printable-stock-report {
+    display: block !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+}
+

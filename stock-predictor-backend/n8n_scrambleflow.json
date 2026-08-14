@@ -298,7 +298,8 @@
         -80
       ],
       "id": "trigger-retrain-node-id",
-      "name": "Kích hoạt Retrain Model"
+      "name": "Kích hoạt Retrain Model",
+      "executeOnce": true
     }
   ],
   "pinData": {},

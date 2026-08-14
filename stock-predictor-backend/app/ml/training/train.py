@@ -215,10 +215,16 @@ def train_model(model_save_path: Optional[str] = None) -> Dict[str, Any]:
         os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
         if promoted:
             challenger_model.save_model(model_save_path)
-            mlflow.xgboost.log_model(challenger_model, artifact_path="champion_model")
+            try:
+                mlflow.xgboost.log_model(challenger_model, artifact_path="champion_model")
+            except Exception as e:
+                logger.warning(f"Could not log model artifact to MLflow: {e}")
             logger.info(f"Successfully promoted Challenger to production at {model_save_path}")
         else:
-            mlflow.xgboost.log_model(challenger_model, artifact_path="rejected_challenger")
+            try:
+                mlflow.xgboost.log_model(challenger_model, artifact_path="rejected_challenger")
+            except Exception as e:
+                logger.warning(f"Could not log model artifact to MLflow: {e}")
             logger.info("Challenger did not outperform Champion. Active production model preserved.")
 
         return {
