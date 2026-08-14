@@ -1,5 +1,5 @@
 {
-  "name": "SICTBIGDATA",
+  "name": "SICTBIGDATA_VN30_PIPELINE",
   "nodes": [
     {
       "parameters": {
@@ -112,7 +112,7 @@
             },
             {
               "name": "pageSize",
-              "value": "10"
+              "value": "30"
             },
             {
               "name": "catID",
@@ -124,11 +124,11 @@
             },
             {
               "name": "fromDate",
-              "value": "2026-07-05"
+              "value": "2026-06-01"
             },
             {
               "name": "toDate",
-              "value": "2026-08-05"
+              "value": "2026-08-15"
             },
             {
               "name": "__RequestVerificationToken",
@@ -149,7 +149,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst results = [];\n\n// Duyệt qua toàn bộ 87 items trả về từ node HTTP Request\nfor (const item of $input.all()) {\n    const data = item.json;\n    if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object' && data[0] !== null && 'StockCode' in data[0]) {\n        \n        for (const record of data) {\n            \n            let formattedDate = null;\n            if (record.TradingDate) {\n                const ms = parseInt(record.TradingDate.replace(/[^0-9]/g, \"\"));\n                const dateObj = new Date(ms);\n                \n                const year = dateObj.getFullYear();\n                const month = String(dateObj.getMonth() + 1).padStart(2, '0');\n                const day = String(dateObj.getDate()).padStart(2, '0');\n                formattedDate = `${year}-${month}-${day}`;\n            }\n            results.push({\n                json: {\n                    time: formattedDate,\n                    symbol: record.StockCode,\n                    open: record.OpenPrice,\n                    high: record.HighestPrice,\n                    low: record.LowestPrice,\n                    close: record.ClosePrice,\n                    volume: record.TotalVol\n                }\n            });\n        }\n    }\n}\n\nreturn results;"
+        "jsCode": "// Loop over input items and extract OHLCV data\nconst results = [];\n\nfor (const item of $input.all()) {\n    const data = item.json;\n    if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object' && data[0] !== null && 'StockCode' in data[0]) {\n        \n        for (const record of data) {\n            let formattedDate = null;\n            if (record.TradingDate) {\n                const ms = parseInt(record.TradingDate.replace(/[^0-9]/g, \"\"));\n                const dateObj = new Date(ms);\n                \n                const year = dateObj.getFullYear();\n                const month = String(dateObj.getMonth() + 1).padStart(2, '0');\n                const day = String(dateObj.getDate()).padStart(2, '0');\n                formattedDate = `${year}-${month}-${day}`;\n            }\n            results.push({\n                json: {\n                    time: formattedDate,\n                    symbol: record.StockCode,\n                    open: record.OpenPrice,\n                    high: record.HighestPrice,\n                    low: record.LowestPrice,\n                    close: record.ClosePrice,\n                    volume: record.TotalVol,\n                    timeframe: \"1D\"\n                }\n            });\n        }\n    }\n}\n\nreturn results;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -177,98 +177,77 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
+            "symbol": "={{ $json.symbol }}",
+            "time": "={{ $json.time }}",
             "open": "={{ $json.open }}",
             "high": "={{ $json.high }}",
             "low": "={{ $json.low }}",
             "close": "={{ $json.close }}",
             "volume": "={{ $json.volume }}",
-            "symbol": "={{ $json.symbol }}",
-            "time": "={{ $json.time }}"
+            "timeframe": "={{ $json.timeframe || '1D' }}"
           },
           "matchingColumns": [
             "symbol",
             "time"
-          ],
-          "schema": [
-            {
-              "id": "time",
-              "displayName": "time",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "symbol",
-              "displayName": "symbol",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "open",
-              "displayName": "open",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": false
-            },
-            {
-              "id": "high",
-              "displayName": "high",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": false
-            },
-            {
-              "id": "low",
-              "displayName": "low",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": false
-            },
-            {
-              "id": "close",
-              "displayName": "close",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": false
-            },
-            {
-              "id": "volume",
-              "displayName": "volume",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
+          ]
         },
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.7,
       "position": [
-        640,
-        -80
+        680,
+        -180
       ],
-      "id": "69cd025c-94e7-4813-9f3d-6cf875bedf8c",
-      "name": "Insert or update rows in a table",
+      "id": "node-upsert-stock-history",
+      "name": "Lưu vào stock_history (Hiển thị Web)",
+      "credentials": {
+        "postgres": {
+          "id": "l54hErRV1yDk0m6p",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "stock_day",
+          "mode": "list",
+          "cachedResultName": "stock_day"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "symbol": "={{ $json.symbol }}",
+            "time": "={{ $json.time }}",
+            "open": "={{ $json.open }}",
+            "high": "={{ $json.high }}",
+            "low": "={{ $json.low }}",
+            "close": "={{ $json.close }}",
+            "volume": "={{ $json.volume }}"
+          },
+          "matchingColumns": [
+            "symbol",
+            "time"
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        680,
+        20
+      ],
+      "id": "node-upsert-stock-day",
+      "name": "Lưu vào stock_day (Huấn luyện AI)",
       "credentials": {
         "postgres": {
           "id": "l54hErRV1yDk0m6p",
@@ -279,7 +258,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://host.docker.internal:8000/api/v1/ml/retrain",
+        "url": "http://localhost:8000/api/v1/ml/retrain",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -294,11 +273,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.5,
       "position": [
-        860,
+        940,
         -80
       ],
       "id": "trigger-retrain-node-id",
-      "name": "Kích hoạt Retrain Model",
+      "name": "Kích hoạt Retrain Model AI",
       "executeOnce": true
     }
   ],
@@ -341,18 +320,23 @@
       "main": [
         [
           {
-            "node": "Insert or update rows in a table",
+            "node": "Lưu vào stock_history (Hiển thị Web)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lưu vào stock_day (Huấn luyện AI)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Insert or update rows in a table": {
+    "Lưu vào stock_day (Huấn luyện AI)": {
       "main": [
         [
           {
-            "node": "Kích hoạt Retrain Model",
+            "node": "Kích hoạt Retrain Model AI",
             "type": "main",
             "index": 0
           }

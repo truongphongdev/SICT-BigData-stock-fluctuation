@@ -1,0 +1,38 @@
+{
+  "version": "v3",
+  "decision": "REJECTED",
+  "reason": "Champion maintained superior performance on f1_score: Champion (0.3556) > Challenger (0.3243). Challenger rejected.",
+  "learning_mode": "WARM_START_CONTINUAL",
+  "base_trees": 300,
+  "total_trees": 320,
+  "challenger_test_metrics": {
+    "accuracy": 0.569,
+    "precision": 0.2667,
+    "recall": 0.4138,
+    "f1_score": 0.3243,
+    "log_loss": 0.8661
+  },
+  "champion_metrics": {
+    "accuracy": 0.75,
+    "precision": 0.5,
+    "recall": 0.2759,
+    "f1_score": 0.3556,
+    "log_loss": 0.5878
+  },
+  "feature_names": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Volume",
+    "RSI_14",
+    "EMA_20",
+    "EMA_50",
+    "MACD_12_26_9",
+    "MACDh_12_26_9",
+    "MACDs_12_26_9",
+    "Return"
+  ],
+  "train_samples": 435,
+  "test_samples": 116
+}

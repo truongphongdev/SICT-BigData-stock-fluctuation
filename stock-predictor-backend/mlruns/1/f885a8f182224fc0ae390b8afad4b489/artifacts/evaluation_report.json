@@ -1,0 +1,29 @@
+{
+  "decision": "PROMOTED",
+  "reason": "Challenger outperformed or equaled Champion on f1_score: Challenger (0.3297) >= Champion (0.3297). Promoted to production.",
+  "challenger_test_metrics": {
+    "accuracy": 0.4741,
+    "precision": 0.2419,
+    "recall": 0.5172,
+    "f1_score": 0.3297,
+    "log_loss": 0.7677
+  },
+  "champion_metrics": {
+    "accuracy": 0.4741,
+    "precision": 0.2419,
+    "recall": 0.5172,
+    "f1_score": 0.3297,
+    "log_loss": 0.7677
+  },
+  "feature_names": [
+    "return_1d",
+    "return_5d",
+    "sma_ratio",
+    "volatility_5d",
+    "volume_change",
+    "volume_ratio",
+    "rsi_14"
+  ],
+  "train_samples": 435,
+  "test_samples": 116
+}

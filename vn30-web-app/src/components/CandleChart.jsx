@@ -16,29 +16,27 @@ export default function CandleChart({ symbol = 'FPT', basePrice = 100, timeframe
     if (timeframe === '1W') numBars = 60;
 
     const rawData = generateCandleData(basePrice, numBars);
-
-    // Ensure width is valid even during fast react mounting/layout transitions
     const initialWidth = container.clientWidth > 0 ? container.clientWidth : 750;
 
     const chart = createChart(container, {
       layout: {
-        background: { type: ColorType.Solid, color: 'transparent' },
-        textColor: '#C3C6D1',
+        background: { type: ColorType.Solid, color: '#ffffff' },
+        textColor: '#64748b',
         fontFamily: "'Inter', 'JetBrains Mono', sans-serif",
       },
       grid: {
-        vertLines: { color: 'rgba(67, 70, 86, 0.25)', style: 1 },
-        horzLines: { color: 'rgba(67, 70, 86, 0.25)', style: 1 },
+        vertLines: { color: '#f1f5f9', style: 1 },
+        horzLines: { color: '#f1f5f9', style: 1 },
       },
       width: initialWidth,
       height: height,
       timeScale: {
-        borderColor: 'rgba(67, 70, 86, 0.4)',
+        borderColor: '#e2e8f0',
         timeVisible: true,
         secondsVisible: false,
       },
       rightPriceScale: {
-        borderColor: 'rgba(67, 70, 86, 0.4)',
+        borderColor: '#e2e8f0',
         autoScale: true,
       },
       crosshair: {
@@ -46,24 +44,22 @@ export default function CandleChart({ symbol = 'FPT', basePrice = 100, timeframe
       },
     });
 
-    // Chuẩn API v5.x mới của Lightweight Charts: dùng chart.addSeries(CandlestickSeries, options)
     const candlestickSeries = chart.addSeries(CandlestickSeries, {
-      upColor: '#22C55E', // Green / Market Up
-      downColor: '#EF4444', // Red / Market Down
+      upColor: '#16a34a', // Emerald 600
+      downColor: '#dc2626', // Red 600
       borderVisible: true,
-      borderUpColor: '#22C55E',
-      borderDownColor: '#EF4444',
-      wickUpColor: '#22C55E',
-      wickDownColor: '#EF4444',
+      borderUpColor: '#16a34a',
+      borderDownColor: '#dc2626',
+      wickUpColor: '#16a34a',
+      wickDownColor: '#dc2626',
     });
 
     candlestickSeries.setData(rawData);
 
-    // Chuẩn API v5.x mới cho Volume Overlay: dùng chart.addSeries(HistogramSeries, options)
     const volumeSeries = chart.addSeries(HistogramSeries, {
-      color: '#3B82F6',
+      color: '#3b82f6',
       priceFormat: { type: 'volume' },
-      priceScaleId: '', // set as overlay on blank price scale ID
+      priceScaleId: '',
     });
 
     volumeSeries.priceScale().applyOptions({
@@ -76,13 +72,12 @@ export default function CandleChart({ symbol = 'FPT', basePrice = 100, timeframe
     const volumeData = rawData.map(d => ({
       time: d.time,
       value: d.volume,
-      color: d.close >= d.open ? 'rgba(34, 197, 94, 0.35)' : 'rgba(239, 68, 68, 0.35)',
+      color: d.close >= d.open ? 'rgba(22, 163, 74, 0.3)' : 'rgba(220, 38, 38, 0.3)',
     }));
 
     volumeSeries.setData(volumeData);
     chart.timeScale().fitContent();
 
-    // ResizeObserver ensures automatic responsiveness when grid layout/modals resize
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         if (entry.contentRect.width > 0) {
@@ -100,12 +95,6 @@ export default function CandleChart({ symbol = 'FPT', basePrice = 100, timeframe
   }, [symbol, basePrice, timeframe, height]);
 
   return (
-    <div className="w-full relative bg-surface-dim/25 rounded-xl overflow-hidden border border-outline-variant/30 p-1 min-h-[460px]">
-      <div ref={chartContainerRef} className="w-full h-full min-h-[450px]" />
-      <div className="absolute top-3 left-3 bg-surface-container-high/85 backdrop-blur px-3 py-1.5 rounded-lg border border-outline-variant/40 flex items-center gap-2 pointer-events-none z-10 shadow-md">
-        <span className="w-2.5 h-2.5 rounded-full bg-market-up animate-ping"></span>
-        <span className="font-bold text-xs text-primary">{symbol} • {timeframe} • Live TradingView Engine (v5)</span>
-      </div>
-    </div>
+    <div ref={chartContainerRef} className="w-full h-full" />
   );
 }

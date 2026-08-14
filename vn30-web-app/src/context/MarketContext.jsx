@@ -22,13 +22,12 @@ export function MarketProvider({ children }) {
 
   // Quản lý tài khoản người dùng trực tuyến
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('vn30_user');
-    return saved !== null ? JSON.parse(saved) : {
-      name: 'Nhà Đầu Tư Alpha VIP',
-      email: 'investor@vn30alpha.ai',
-      plan: 'Premium AI Alpha',
-      avatar: 'https://api.dicebear.com/7.x/bottts-neutral/svg?seed=VN30_Investor'
-    };
+    try {
+      const saved = localStorage.getItem('vn30_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
   });
 
   // Fetch initial stocks from backend on mount

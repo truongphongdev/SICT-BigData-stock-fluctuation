@@ -43,9 +43,9 @@ def time_based_train_test_split(
         train_df = df.iloc[:split_idx]
         test_df = df.iloc[split_idx:]
 
-    X_train = train_df[feature_cols].values
+    X_train = train_df[feature_cols].copy()
     y_train = train_df[target_col].values
-    X_test = test_df[feature_cols].values
+    X_test = test_df[feature_cols].copy()
     y_test = test_df[target_col].values
 
     return X_train, X_test, y_train, y_test, train_df, test_df

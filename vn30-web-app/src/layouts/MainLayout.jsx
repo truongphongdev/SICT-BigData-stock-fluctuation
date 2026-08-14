@@ -4,14 +4,14 @@ import TopHeader from '../components/TopHeader';
 
 export default function MainLayout() {
   return (
-    <div className="bg-background min-h-screen text-on-surface">
+    <div className="bg-slate-50 min-h-screen text-slate-800 flex">
       <Sidebar />
-      <main className="ml-[240px] min-h-screen flex flex-col">
+      <div className="ml-[220px] flex-1 flex flex-col min-h-screen bg-slate-50">
         <TopHeader />
-        <div className="mt-16 p-6 space-y-6">
+        <main className="p-6 mt-14 max-w-7xl w-full mx-auto space-y-6 flex-1">
           <Outlet />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

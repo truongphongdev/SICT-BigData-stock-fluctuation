@@ -1,0 +1,53 @@
+{
+  "model_name": "stock-predictor-vn30",
+  "active_version": 0,
+  "total_versions": 3,
+  "last_updated": "2026-08-14T15:29:41.795762+00:00",
+  "versions": [
+    {
+      "version": 1,
+      "filename": "model_v1.json",
+      "filepath": "D:\\SIC_Big_Data\\MoHinh\\SICT-BigData-stock-fluctuation\\stock-predictor-backend\\app\\ml\\models\\versions\\model_v1.json",
+      "created_at": "2026-08-14T15:23:30.180004+00:00",
+      "trees": 320,
+      "learning_mode": "WARM_START_CONTINUAL",
+      "accuracy": 0.569,
+      "f1_score": 0.3243,
+      "precision": 0.2667,
+      "recall": 0.4138,
+      "promoted": false,
+      "promotion_reason": "Champion maintained superior performance on f1_score: Champion (0.3556) > Challenger (0.3243). Challenger rejected.",
+      "mlflow_run_id": "7e33a7222b384de1a4fa1086142fc272"
+    },
+    {
+      "version": 2,
+      "filename": "model_v2.json",
+      "filepath": "D:\\SIC_Big_Data\\MoHinh\\SICT-BigData-stock-fluctuation\\stock-predictor-backend\\app\\ml\\models\\versions\\model_v2.json",
+      "created_at": "2026-08-14T15:27:34.804490+00:00",
+      "trees": 320,
+      "learning_mode": "WARM_START_CONTINUAL",
+      "accuracy": 0.569,
+      "f1_score": 0.3243,
+      "precision": 0.2667,
+      "recall": 0.4138,
+      "promoted": false,
+      "promotion_reason": "Champion maintained superior performance on f1_score: Champion (0.3556) > Challenger (0.3243). Challenger rejected.",
+      "mlflow_run_id": "195830de56094187996c29bf44a3122b"
+    },
+    {
+      "version": 3,
+      "filename": "model_v3.json",
+      "filepath": "D:\\SIC_Big_Data\\MoHinh\\SICT-BigData-stock-fluctuation\\stock-predictor-backend\\app\\ml\\models\\versions\\model_v3.json",
+      "created_at": "2026-08-14T15:29:41.795723+00:00",
+      "trees": 320,
+      "learning_mode": "WARM_START_CONTINUAL",
+      "accuracy": 0.569,
+      "f1_score": 0.3243,
+      "precision": 0.2667,
+      "recall": 0.4138,
+      "promoted": false,
+      "promotion_reason": "Champion maintained superior performance on f1_score: Champion (0.3556) > Challenger (0.3243). Challenger rejected.",
+      "mlflow_run_id": "c6b45f0494de4ee9831142a9af29b5d5"
+    }
+  ]
+}

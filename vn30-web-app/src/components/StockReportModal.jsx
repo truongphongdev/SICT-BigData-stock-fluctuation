@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function StockReportModal({ stock, isOpen, onClose }) {
-  if (!isOpen || !stock) return null;
+export default function StockReportModal({ stock, isOpen = true, onClose }) {
+  if (isOpen === false || !stock) return null;
 
   const isUp = (stock.change ?? 0) >= 0;
   const currentDate = new Date().toLocaleDateString('vi-VN', {
@@ -27,35 +27,35 @@ export default function StockReportModal({ stock, isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fade-in print:p-0 print:bg-white print:static print:overflow-visible">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto animate-fade-in print:p-0 print:bg-white print:static print:overflow-visible">
       {/* Container Báo Cáo A4 */}
-      <div className="bg-surface-container border-2 border-primary/40 rounded-2xl max-w-4xl w-full p-8 space-y-6 shadow-2xl relative my-auto max-h-[92vh] overflow-y-auto print:max-h-none print:max-w-none print:w-full print:p-6 print:border-none print:shadow-none print:bg-white print:text-black print:overflow-visible print:my-0">
+      <div className="bg-white border border-slate-200 rounded-2xl max-w-4xl w-full p-8 space-y-6 shadow-xl relative my-auto max-h-[92vh] overflow-y-auto print:max-h-none print:max-w-none print:w-full print:p-6 print:border-none print:shadow-none print:bg-white print:text-black print:overflow-visible print:my-0">
         
         {/* Thanh công cụ Modal (Không in khi xuất PDF) */}
-        <div className="flex justify-between items-center pb-4 border-b border-outline-variant/60 print:hidden">
+        <div className="flex justify-between items-center pb-4 border-b border-slate-200 print:hidden">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary text-2xl">picture_as_pdf</span>
-            <span className="font-bold text-lg text-on-surface">Bản Xem Trước Báo Cáo BI Chứng Khoán (A4 PDF)</span>
+            <span className="material-symbols-outlined text-blue-600 text-2xl">picture_as_pdf</span>
+            <span className="font-bold text-base text-slate-900">Bản Xem Trước Báo Cáo (A4 PDF)</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-xl font-bold hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/25 text-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition text-xs shadow-sm"
             >
-              <span className="material-symbols-outlined text-[18px]">print</span>
-              In / Tải PDF Ngay
+              <span className="material-symbols-outlined text-base">print</span>
+              <span>In / Tải PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl bg-surface-variant hover:bg-error/20 hover:text-error text-on-surface-variant transition-colors"
+              className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition"
             >
-              <span className="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined text-base">close</span>
             </button>
           </div>
         </div>
 
-        {/* NỘI DUNG BÁO CÁO BI (PRINTABLE REPORT AREA) */}
-        <div id="printable-stock-report" className="space-y-6 bg-surface-container-low p-6 rounded-xl border border-outline-variant/30 print:bg-white print:border-none print:p-0 print:text-slate-900">
+        {/* NỘI DUNG BÁO CÁO BI */}
+        <div id="printable-stock-report" className="space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200 print:bg-white print:border-none print:p-0 print:text-slate-900">
           
           {/* Header Báo Cáo */}
           <div className="flex justify-between items-start border-b-2 border-primary/40 pb-4 print:border-primary">

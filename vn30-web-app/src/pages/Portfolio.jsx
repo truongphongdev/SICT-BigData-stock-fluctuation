@@ -48,7 +48,7 @@ export default function Portfolio() {
   );
 
   return (
-    <div className="mt-16 p-6 space-y-6">
+    <div className="space-y-6 text-slate-100">
       {/* Top Breadcrumbs and Action Bar */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant/40 pb-5">
         <div>

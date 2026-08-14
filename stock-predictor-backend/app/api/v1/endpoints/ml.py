@@ -1,14 +1,15 @@
 """
-Endpoints for Machine Learning model lifecycle management (Retraining, MLflow Evaluation, Hot-Reload, History).
+Endpoints for Machine Learning model lifecycle management (Retraining, MLflow Evaluation, Versioning, Rollback).
 """
 import os
 import logging
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
-from fastapi import APIRouter, BackgroundTasks, Query, status
+from fastapi import APIRouter, BackgroundTasks, Query, status, HTTPException
 
 from app.ml.training.train import train_model
 from app.ml.registry import model_registry
+from app.ml.versioning import get_manifest, rollback_to_version
 from app.services.prediction_service import prediction_service
 from app.core.config import settings
 
@@ -22,7 +23,7 @@ def execute_background_retraining():
     logger.info("=== [ML PIPELINE] Starting background model retraining & evaluation ===")
     try:
         result = train_model()
-        logger.info(f"=== [ML PIPELINE] Retraining finished. Decision: {result.get('promotion_reason')} ===")
+        logger.info(f"=== [ML PIPELINE] Retraining finished. Version: {result.get('version')} | Decision: {result.get('promotion_reason')} ===")
         if result.get("success"):
             if result.get("promoted"):
                 prediction_service.load_model()
@@ -38,7 +39,7 @@ def execute_background_retraining():
 @router.post("/retrain", status_code=status.HTTP_202_ACCEPTED, summary="Kích hoạt luồng huấn luyện & đánh giá mô hình với MLflow (Bất đồng bộ)")
 def trigger_retraining(background_tasks: BackgroundTasks) -> Dict[str, Any]:
     """
-    Triggers the model retraining and MLflow Champion/Challenger evaluation pipeline as an asynchronous background task.
+    Triggers the continual model retraining and MLflow Champion/Challenger evaluation pipeline as an asynchronous background task.
     Returns immediately to avoid webhook / client timeouts.
     """
     background_tasks.add_task(execute_background_retraining)
@@ -52,8 +53,8 @@ def trigger_retraining(background_tasks: BackgroundTasks) -> Dict[str, Any]:
 @router.post("/retrain-sync", summary="Kích hoạt huấn luyện, đánh giá mô hình MLflow và chờ kết quả (Đồng bộ)")
 def trigger_retraining_sync() -> Dict[str, Any]:
     """
-    Executes the retraining & Champion/Challenger evaluation pipeline synchronously.
-    Returns full metrics, MLflow run ID, and promotion outcome.
+    Executes the continual retraining & Champion/Challenger evaluation pipeline synchronously.
+    Returns full metrics, MLflow run ID, version record, and promotion outcome.
     """
     result = train_model()
     if result.get("success") and result.get("promoted"):
@@ -64,6 +65,28 @@ def trigger_retraining_sync() -> Dict[str, Any]:
         "result": result,
         "completed_at": datetime.now(timezone.utc).isoformat()
     }
+
+
+@router.get("/versions", summary="Xem danh sách tất cả các phiên bản mô hình đã lưu và phiên bản đang kích hoạt")
+def list_model_versions() -> Dict[str, Any]:
+    """
+    Returns the full versions manifest with all checkpoints, performance metrics, and active version info.
+    """
+    manifest = get_manifest()
+    return manifest
+
+
+@router.post("/rollback/{version}", summary="Kích hoạt / Rollback hệ thống về một phiên bản mô hình bất kỳ trong quá khứ")
+def rollback_model_version(version: int) -> Dict[str, Any]:
+    """
+    Rolls back the active production model to a specific checkpoint version and hot-reloads it into memory.
+    """
+    result = rollback_to_version(version)
+    if not result.get("success"):
+        raise HTTPException(status_code=400, detail=result.get("error", "Rollback failed"))
+
+    prediction_service.load_model()
+    return result
 
 
 @router.get("/evaluation-history", summary="Lấy lịch sử các lần huấn luyện và đánh giá mô hình từ MLflow")
@@ -85,6 +108,7 @@ def get_ml_status() -> Dict[str, Any]:
     """
     Returns current active model status, MLflow tracking configuration, and hot-reload state.
     """
+    manifest = get_manifest()
     model_path = settings.MODEL_PATH
     exists = os.path.exists(model_path)
     last_modified = None
@@ -99,9 +123,11 @@ def get_ml_status() -> Dict[str, Any]:
         "model_loaded": is_loaded,
         "model_type": model_type,
         "model_path": model_path,
+        "active_version": manifest.get("active_version", 1),
+        "total_versions": manifest.get("total_versions", 1),
         "weights_exist": exists,
         "last_trained_at": last_modified,
         "mlflow_tracking_uri": settings.MLFLOW_TRACKING_URI,
         "mlflow_experiment_name": settings.MLFLOW_EXPERIMENT_NAME,
-        "version": "v3.4-XGBoost Alpha"
+        "version_tag": f"v{manifest.get('active_version', 1)}-XGBoost"
     }

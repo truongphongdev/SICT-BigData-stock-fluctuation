@@ -1,0 +1,41 @@
+artifact_path: file:D:/SIC_Big_Data/MoHinh/SICT-BigData-stock-fluctuation/stock-predictor-backend/mlruns/1/models/m-180c611a63de45c9be983b52c28745c5/artifacts
+flavors:
+  python_function:
+    data: model.ubj
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.13.7
+  xgboost:
+    code: null
+    data: model.ubj
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: ubj
+    xgb_version: 3.4.0
+is_signature_from_type_hint: false
+mlflow_version: 3.13.0
+model_id: m-180c611a63de45c9be983b52c28745c5
+model_size_bytes: 1788098
+model_uuid: m-180c611a63de45c9be983b52c28745c5
+prompts: null
+run_id: 7e33a7222b384de1a4fa1086142fc272
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "Open", "required": true}, {"type": "double",
+    "name": "High", "required": true}, {"type": "double", "name": "Low", "required":
+    true}, {"type": "double", "name": "Close", "required": true}, {"type": "double",
+    "name": "Volume", "required": true}, {"type": "double", "name": "RSI_14", "required":
+    true}, {"type": "double", "name": "EMA_20", "required": true}, {"type": "double",
+    "name": "EMA_50", "required": true}, {"type": "double", "name": "MACD_12_26_9",
+    "required": true}, {"type": "double", "name": "MACDh_12_26_9", "required": true},
+    {"type": "double", "name": "MACDs_12_26_9", "required": true}, {"type": "double",
+    "name": "Return", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-08-14 15:23:30.343089'
